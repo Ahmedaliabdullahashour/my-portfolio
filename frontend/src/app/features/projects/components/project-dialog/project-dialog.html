@@ -1,0 +1,94 @@
+<div class="backdrop" (click)="onBackdrop($event)">
+  <div
+    #dialog
+    class="dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="project-dialog-title"
+    aria-describedby="project-dialog-summary"
+  >
+    <button type="button" class="dialog__close" data-autofocus aria-label="Close project details" (click)="close()">
+      <app-icon name="close" />
+    </button>
+
+    <div class="dialog__media">
+      <img [src]="project().image" [alt]="project().imageAlt || project().title + ' preview'" />
+      <span class="dialog__media-shade" aria-hidden="true"></span>
+      @if (project().isDemo) {
+        <span class="badge-demo dialog__demo">Demo content</span>
+      }
+    </div>
+
+    <div class="dialog__content">
+      <div class="dialog__meta">
+        <span class="eyebrow">{{ project().category }}</span>
+        @if (project().year) {
+          <span class="dialog__year mono">{{ project().year }}</span>
+        }
+      </div>
+
+      <h2 class="dialog__title" id="project-dialog-title">{{ project().title }}</h2>
+
+      <p class="dialog__summary" id="project-dialog-summary">
+        {{ project().longDescription || project().description }}
+      </p>
+
+      @if (project().highlights?.length) {
+        <h3 class="dialog__heading">Highlights</h3>
+        <ul class="dialog__highlights">
+          @for (highlight of project().highlights; track highlight) {
+            <li>
+              <span class="dialog__check"><app-icon name="check" /></span>
+              {{ highlight }}
+            </li>
+          }
+        </ul>
+      }
+
+      <h3 class="dialog__heading">Stack</h3>
+      <ul class="dialog__tech">
+        @for (tech of project().technologies; track tech) {
+          <li class="chip">{{ tech }}</li>
+        }
+      </ul>
+
+      @if (project().isDemo) {
+        <p class="dialog__note">
+          <app-icon name="alert-triangle" />
+          <span>
+            This project is editable demo content. Replace its copy, image and URLs in
+            <code>core/data/portfolio.mock.ts</code> or from the future admin dashboard.
+          </span>
+        </p>
+      }
+
+      <div class="dialog__actions">
+        @if (project().liveUrl) {
+          <a class="btn btn--primary btn--sm" [href]="project().liveUrl" target="_blank" rel="noopener noreferrer">
+            Live demo
+            <span class="btn__icon"><app-icon name="external-link" /></span>
+          </a>
+        } @else {
+          <button type="button" class="btn btn--ghost btn--sm" (click)="missingLink('live demo')">
+            Live demo
+            <span class="btn__icon"><app-icon name="external-link" /></span>
+          </button>
+        }
+
+        @if (project().githubUrl) {
+          <a class="btn btn--ghost btn--sm" [href]="project().githubUrl" target="_blank" rel="noopener noreferrer">
+            Source code
+            <span class="btn__icon"><app-icon name="github" /></span>
+          </a>
+        } @else {
+          <button type="button" class="btn btn--ghost btn--sm" (click)="missingLink('GitHub')">
+            Source code
+            <span class="btn__icon"><app-icon name="github" /></span>
+          </button>
+        }
+
+        <button type="button" class="btn btn--quiet btn--sm dialog__dismiss" (click)="close()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

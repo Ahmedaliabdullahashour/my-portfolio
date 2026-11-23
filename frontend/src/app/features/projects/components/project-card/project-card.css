@@ -1,0 +1,241 @@
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.project {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg-2);
+  transition: border-color 0.25s ease;
+}
+
+.project:hover {
+  border-color: var(--accent-line);
+}
+
+/* Media */
+.project__media {
+  position: relative;
+  aspect-ratio: 16 / 9.6;
+  overflow: hidden;
+  background: var(--bg-3);
+}
+
+.project__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project:hover .project__image {
+  transform: scale(1.025);
+}
+
+.project__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35),
+    transparent 35%,
+    transparent 65%,
+    rgba(0, 0, 0, 0.3)
+  );
+  pointer-events: none;
+}
+
+.project__top {
+  position: absolute;
+  inset: 0.85rem 0.85rem auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.project__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.project__featured,
+.project__category {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--r-pill);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.project__featured {
+  border: 1px solid rgba(99, 164, 255, 0.35);
+  background: rgba(8, 16, 32, 0.9);
+  color: var(--accent-bright);
+}
+
+.project__featured app-icon {
+  font-size: 0.8rem;
+}
+
+.project__category {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(8, 13, 24, 0.85);
+  color: #fff;
+}
+
+.project__peek {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(8, 13, 24, 0.85);
+  color: #fff;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.project:hover .project__peek,
+.project:focus-within .project__peek {
+  opacity: 1;
+}
+
+.project__peek:hover {
+  background: var(--accent);
+}
+
+.project__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+}
+
+.project__heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.project__title {
+  color: var(--text);
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.project__year {
+  flex-shrink: 0;
+  color: var(--faint);
+  font-size: 0.75rem;
+}
+
+.project__description {
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.7;
+}
+
+.project__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip--more {
+  color: var(--faint);
+}
+
+.project__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.project__view {
+  font-size: 0.8rem;
+}
+
+.project__links {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.project__link {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.95rem;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.project__link:hover {
+  color: var(--accent-bright);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+.project__link--pending {
+  border-style: dashed;
+  color: var(--faint);
+  cursor: help;
+}
+
+.project__link--pending:hover {
+  color: var(--faint);
+  border-color: var(--line-strong);
+  background: transparent;
+}
+
+@media (max-width: 480px) {
+  .project__body {
+    padding: 1rem;
+  }
+
+  .project__peek {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project,
+  .project__image,
+  .project__peek,
+  .project__link {
+    transition: none;
+  }
+}

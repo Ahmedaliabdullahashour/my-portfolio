@@ -1,0 +1,89 @@
+.contact {position: relative;overflow: hidden;
+}
+.contact__bg {display: none;
+}
+.contact__orb,
+.contact__grid {display: none;
+}
+.contact__inner {position: relative;display: grid;grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);gap: clamp(2rem, 4vw, 4rem);align-items: start;
+}
+.contact__details {display: flex;flex-direction: column;gap: 0.7rem;
+}
+.contact__detail {display: flex;align-items: center;gap: 0.9rem;padding: 1rem;background: var(--bg-2);border: 1px solid var(--line);border-radius: 0.8rem;transition: border-color 0.2s ease;
+}
+.contact__detail:hover {border-color: var(--accent);
+}
+.contact__detail-icon {display: grid;place-items: center;width: 2.5rem;height: 2.5rem;flex-shrink: 0;border-radius: 0.65rem;background: var(--accent-soft);color: var(--accent-bright);font-size: 1.05rem;
+}
+.contact__detail-icon--success {background: var(--success-soft);color: var(--success);
+}
+.contact__detail-body {display: flex;flex-direction: column;gap: 0.2rem;min-width: 0;
+}
+.contact__detail-label {font-size: 0.68rem;letter-spacing: 0.08em;text-transform: uppercase;color: var(--faint);
+}
+.contact__detail-value {font-size: 0.88rem;font-weight: 500;color: var(--text-soft);line-height: 1.5;word-break: break-word;
+}
+a.contact__detail-value {transition: color 0.2s ease;
+}
+a.contact__detail-value:hover {color: var(--accent-bright);
+}
+.contact__copy {display: grid;place-items: center;width: 2rem;height: 2rem;margin-left: auto;flex-shrink: 0;border: 1px solid var(--line);border-radius: 0.5rem;background: transparent;color: var(--muted);font-size: 0.9rem;cursor: pointer;transition: all 0.2s ease;
+}
+.contact__copy:hover { color: var(--accent-bright); border-color: var(--accent); background: var(--accent-soft);
+}
+.contact__socials {display: flex;flex-direction: column;gap: 0.7rem;margin-top: 1.5rem;
+}
+.contact__socials-label {margin-bottom: 0.2rem;font-size: 0.68rem;letter-spacing: 0.1em;text-transform: uppercase;color: var(--faint);
+}
+.contact__panel {  position: relative;  padding: clamp(1.4rem, 3vw, 2rem);  background: var(--bg-2);  border: 1px solid var(--line);  border-radius: 1rem;  box-shadow: var(--shadow-md);
+}
+.contact__panel-head {display: flex;align-items: center;gap: 0.85rem;margin-bottom: 1.5rem;
+}
+.contact__panel-icon {display: grid;place-items: center;width: 2.6rem;height: 2.6rem;flex-shrink: 0;border-radius: 0.7rem;background: var(--accent-soft);color: var(--accent-bright);font-size: 1.1rem;
+}
+.contact__panel-title {font-size: 1.1rem;font-weight: 600;color: var(--text);
+}
+.contact__panel-subtitle {margin-top: 0.2rem;color: var(--muted);font-size: 0.8rem;
+}
+.contact__form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;
+}
+.contact__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem;
+}
+.contact__label-row {display: flex;align-items: baseline;justify-content: space-between;gap: 1rem;
+}
+.contact__form-foot {display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;gap: 1rem;margin-top: 0.5rem;padding-top: 1.2rem;border-top: 1px solid var(--line);
+}
+.contact__submit {
+  min-width: 10.5rem;
+}
+.contact__privacy {display: inline-flex;align-items: center;gap: 0.4rem;color: var(--muted);font-size: 0.72rem;
+}
+.contact__privacy app-icon {color: var(--success);font-size: 0.85rem;
+}
+@media (max-width: 960px) {
+  .contact__inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+@media (max-width: 560px) {
+  .contact__row {
+    grid-template-columns: 1fr;
+  }
+  .contact__panel {
+    padding: 1.2rem;
+  }
+  .contact__form-foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .contact__submit {
+    width: 100%;
+  }
+  .contact__privacy {
+    justify-content: center;
+  }
+  .contact__detail {
+    padding: 0.85rem;
+  }
+}

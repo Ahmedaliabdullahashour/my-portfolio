@@ -1,0 +1,88 @@
+<section class="section section--tint experience" id="experience" aria-labelledby="experience-heading">
+  <div class="container">
+    <div class="experience__layout">
+      <div class="experience__aside">
+        <app-section-heading
+          eyebrow="Experience"
+          headingId="experience-heading"
+          title="Where I have worked"
+          subtitle="Roles, internships and collaborations will be listed here. The entries below are placeholders ready for real content."
+        />
+
+        <div class="experience__aside-card" appReveal>
+          <span class="experience__aside-icon"><app-icon name="briefcase" /></span>
+          <div>
+            <span class="experience__aside-label">Looking for</span>
+            <p class="experience__aside-text">
+              Junior front-end roles and internships where I can contribute to real product work.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="experience__main">
+        @if (loading() && !experience().length) {
+          <div class="experience__skeleton" aria-hidden="true">
+            @for (item of [1, 2]; track item) {
+              <span class="skeleton" style="height: 11rem; border-radius: 1.4rem"></span>
+            }
+          </div>
+          <span class="sr-only">Loading experience…</span>
+        } @else if (!experience().length) {
+          <app-empty-state
+            icon="briefcase"
+            title="No experience published yet"
+            message="Experience added through the API will appear on this timeline automatically."
+            actionLabel="Reload experience"
+            (action)="retry()"
+          />
+        } @else {
+          <ol class="timeline">
+            @for (item of experience(); track item.id) {
+              <li class="timeline__item" appReveal [revealDelay]="$index * 80">
+                <span class="timeline__rail" aria-hidden="true">
+                  <span class="timeline__dot" [class.timeline__dot--current]="!item.endDate"></span>
+                </span>
+
+                <div class="timeline__card">
+                  <div class="timeline__header">
+                    <div class="timeline__titles">
+                      <h3 class="timeline__role">{{ item.role }}</h3>
+                      <p class="timeline__company">
+                        <app-icon name="briefcase" />
+                        {{ item.company }}
+                        @if (item.location) {
+                          <span class="timeline__location">· {{ item.location }}</span>
+                        }
+                      </p>
+                    </div>
+
+                    <div class="timeline__stamps">
+                      @if (item.isPlaceholder) {
+                        <span class="badge-demo">Placeholder</span>
+                      }
+                      <span class="timeline__period">
+                        <app-icon name="calendar" />
+                        {{ item.startDate }} — {{ item.endDate || 'Present' }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p class="timeline__description">{{ item.description }}</p>
+
+                  @if (item.technologies?.length) {
+                    <ul class="timeline__tech">
+                      @for (tech of item.technologies; track tech) {
+                        <li class="chip">{{ tech }}</li>
+                      }
+                    </ul>
+                  }
+                </div>
+              </li>
+            }
+          </ol>
+        }
+      </div>
+    </div>
+  </div>
+</section>

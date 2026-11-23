@@ -1,0 +1,235 @@
+import type {
+  Education,
+  Experience,
+  PortfolioSettings,
+  Project,
+  Skill,
+} from '../models';
+
+/* --------------------------------------------------------------------------
+ * LOCAL MOCK CONTENT
+ * --------------------------------------------------------------------------
+ * This is the single source of truth while the REST API is not connected.
+ * Everything here is meant to be edited — copy is placeholder content and
+ * sample projects are explicitly flagged with `isDemo: true`.
+ * ------------------------------------------------------------------------ */
+
+export const MOCK_SETTINGS: PortfolioSettings = {
+  name: 'Ahmed Ali Abdullah Ashour',
+  shortName: 'Ahmed Ashour',
+  title: 'Front-End Developer',
+  tagline: 'I design and build fast, accessible interfaces for the modern web.',
+  intro:
+    'Front-end developer focused on Angular, TypeScript and thoughtful UI engineering. I turn complex requirements into clean, responsive experiences that feel effortless to use.',
+  bio: [
+    'I am Ahmed Ali Abdullah Ashour, a front-end developer with a strong interest in interface design and the engineering behind it. My work sits at the intersection of clean architecture and visual craft — components that are reusable, accessible and pleasant to interact with.',
+    'I study Computer Science at the Faculty of Obour University for Science and Technology, where I build a solid foundation in algorithms, object-oriented programming and system analysis. Alongside my studies I keep sharpening my front-end stack: HTML, CSS, JavaScript, TypeScript and Angular, with Node.js, Express.js and MongoDB on the backend side.',
+    'I enjoy turning ideas into shipped products: planning the data model, structuring an Angular application into clear feature boundaries, and polishing motion, spacing and typography until the interface feels right. I am currently open to junior front-end roles, internships and freelance collaborations.',
+  ],
+  careerGoals: [
+    'Grow into a front-end engineer who owns complete product experiences.',
+    'Contribute to production Angular applications with clean, testable architecture.',
+    'Deepen my full-stack skills with Node.js, Express.js and MongoDB.',
+    'Keep accessibility and performance as defaults, not afterthoughts.',
+  ],
+  // Placeholder contact details — replace with the real ones before publishing.
+  email: 'ahmed.ashour@example.com',
+  location: 'Egypt',
+  availability: 'Open to junior roles, internships & freelance work',
+  cvUrl: 'assets/cv/ahmed-ashour-cv.pdf',
+  profileImage: 'assets/images/profile.svg',
+  socialImage: 'assets/images/social-preview.svg',
+  socials: [
+    { label: 'GitHub', icon: 'github', url: '' },
+    { label: 'LinkedIn', icon: 'linkedin', url: '' },
+    { label: 'Email', icon: 'mail', url: 'mailto:ahmed.ashour@example.com' },
+  ],
+};
+
+export const MOCK_SKILLS: Skill[] = [
+  { id: 'html', name: 'HTML', level: 95, category: 'Frontend', icon: 'code', note: 'Semantic, accessible markup' },
+  { id: 'css', name: 'CSS', level: 92, category: 'Frontend', icon: 'palette', note: 'Responsive layouts & motion' },
+  { id: 'javascript', name: 'JavaScript', level: 88, category: 'Frontend', icon: 'braces', note: 'Modern ES features' },
+  { id: 'typescript', name: 'TypeScript', level: 86, category: 'Frontend', icon: 'file-code', note: 'Typed, maintainable code' },
+  { id: 'angular', name: 'Angular', level: 85, category: 'Frontend', icon: 'layers', note: 'Standalone, signals, routing' },
+  { id: 'node', name: 'Node.js', level: 78, category: 'Backend', icon: 'server', note: 'APIs & tooling' },
+  { id: 'express', name: 'Express.js', level: 76, category: 'Backend', icon: 'route', note: 'REST endpoints' },
+  { id: 'mongodb', name: 'MongoDB', level: 72, category: 'Backend', icon: 'database', note: 'Schemas & queries' },
+  { id: 'cpp', name: 'C++', level: 80, category: 'Programming', icon: 'cpu', note: 'Data structures & logic' },
+  { id: 'oop', name: 'OOP', level: 85, category: 'Programming', icon: 'boxes', note: 'Reusable object design' },
+  { id: 'algorithms', name: 'Algorithms', level: 75, category: 'Computer Science', icon: 'git-branch', note: 'Problem solving' },
+  { id: 'system-analysis', name: 'System Analysis', level: 78, category: 'Computer Science', icon: 'workflow', note: 'Requirements & modelling' },
+];
+
+export const MOCK_PROJECTS: Project[] = [
+  {
+    id: 'demo-aurora',
+    title: 'Aurora — Analytics Dashboard',
+    description:
+      'A dark analytics dashboard concept with responsive charts, filter chips and a component-driven layout.',
+    longDescription:
+      'A sample dashboard built to demonstrate information hierarchy, data-dense layouts and reusable card components. Includes a collapsible sidebar, KPI tiles and a filterable activity feed. This is editable demo content: replace it with a real project and its live links.',
+    image: 'assets/images/projects/aurora.svg',
+    imageAlt: 'Abstract preview of the Aurora analytics dashboard',
+    technologies: ['Angular', 'TypeScript', 'CSS', 'Signals'],
+    category: 'Frontend',
+    githubUrl: '',
+    liveUrl: '',
+    featured: true,
+    order: 1,
+    year: '2026',
+    highlights: [
+      'Reusable dashboard shell and widget components',
+      'Responsive grid that reflows cleanly on mobile',
+      'Signal-based state with loading skeletons',
+    ],
+    isDemo: true,
+  },
+  {
+    id: 'demo-nova',
+    title: 'Nova — E-Commerce Storefront',
+    description:
+      'A full-stack storefront demo with product filtering, a cart drawer and a REST API backed by MongoDB.',
+    longDescription:
+      'Sample storefront showing a complete product browsing flow: category filters, product cards, a cart summary and an order form. The API layer is prepared for Express.js and MongoDB. Replace with a real project before publishing.',
+    image: 'assets/images/projects/nova.svg',
+    imageAlt: 'Abstract preview of the Nova storefront',
+    technologies: ['Angular', 'Express.js', 'MongoDB', 'TypeScript'],
+    category: 'Full-Stack',
+    githubUrl: '',
+    liveUrl: '',
+    featured: true,
+    order: 2,
+    year: '2026',
+    highlights: [
+      'Typed API contracts shared with the Node.js layer',
+      'Cart state and optimistic UI updates',
+      'Mobile-first product grid',
+    ],
+    isDemo: true,
+  },
+  {
+    id: 'demo-atlas',
+    title: 'Atlas — Task Workspace',
+    description:
+      'A minimal task workspace with drag-free kanban columns, keyboard-friendly workflows and calm motion.',
+    longDescription:
+      'Concept product exploring productivity UI: boards, quick capture and a compact activity timeline. Built as a front-end exercise in state management and micro-interactions. Editable demo content.',
+    image: 'assets/images/projects/atlas.svg',
+    imageAlt: 'Abstract preview of the Atlas task workspace',
+    technologies: ['TypeScript', 'Angular', 'RxJS'],
+    category: 'Frontend',
+    githubUrl: '',
+    liveUrl: '',
+    featured: false,
+    order: 3,
+    year: '2025',
+    highlights: ['Keyboard-first interactions', 'Optimistic state updates', 'Reduced-motion friendly'],
+    isDemo: true,
+  },
+  {
+    id: 'demo-pulse',
+    title: 'Pulse — Weather Interface',
+    description:
+      'A weather experience with animated conditions, saved locations and a fully responsive layout.',
+    longDescription:
+      'Interface study focused on data visualisation, atmospheric backgrounds and typography at small sizes. Uses a mock weather provider that can be swapped for any REST API. Editable demo content.',
+    image: 'assets/images/projects/pulse.svg',
+    imageAlt: 'Abstract preview of the Pulse weather interface',
+    technologies: ['Angular', 'CSS', 'REST API'],
+    category: 'Frontend',
+    githubUrl: '',
+    liveUrl: '',
+    featured: false,
+    order: 4,
+    year: '2025',
+    highlights: ['Animated weather states', 'Persistent saved locations', 'Accessible contrast'],
+    isDemo: true,
+  },
+  {
+    id: 'demo-meridian',
+    title: 'Meridian — Design System',
+    description:
+      'A token-driven design system: typography scale, color primitives and documented component states.',
+    longDescription:
+      'A small design system pack covering tokens, buttons, inputs, cards and layout primitives, with usage notes. Created to keep product interfaces consistent. Editable demo content.',
+    image: 'assets/images/projects/meridian.svg',
+    imageAlt: 'Abstract preview of the Meridian design system',
+    technologies: ['CSS', 'Design Tokens', 'HTML'],
+    category: 'UI / UX',
+    githubUrl: '',
+    liveUrl: '',
+    featured: false,
+    order: 5,
+    year: '2025',
+    highlights: ['CSS custom-property theming', 'Documented states', 'Zero UI dependencies'],
+    isDemo: true,
+  },
+  {
+    id: 'demo-scholar',
+    title: 'Scholar — Course Platform',
+    description:
+      'A course platform concept with lesson progress, a reading view and an instructor dashboard shell.',
+    longDescription:
+      'Learning platform concept demonstrating nested routing, progress tracking and content-heavy layouts. Backend contracts are sketched for future integration. Editable demo content.',
+    image: 'assets/images/projects/scholar.svg',
+    imageAlt: 'Abstract preview of the Scholar course platform',
+    technologies: ['Angular', 'TypeScript', 'Node.js'],
+    category: 'Full-Stack',
+    githubUrl: '',
+    liveUrl: '',
+    featured: false,
+    order: 6,
+    year: '2026',
+    highlights: ['Nested feature routing', 'Progress persistence', 'Content-first typography'],
+    isDemo: true,
+  },
+];
+
+export const MOCK_EXPERIENCE: Experience[] = [
+  {
+    id: 'placeholder-1',
+    role: 'Front-End Developer',
+    company: 'Company name',
+    location: 'Location',
+    startDate: '20XX',
+    endDate: '20XX',
+    description:
+      'Placeholder entry. Describe the role, the team and the interfaces you shipped. Replace this text inside the portfolio data service or, once the API is live, from the admin dashboard.',
+    technologies: ['Angular', 'TypeScript', 'CSS'],
+    isPlaceholder: true,
+  },
+  {
+    id: 'placeholder-2',
+    role: 'Junior Front-End Developer',
+    company: 'Company name',
+    location: 'Location',
+    startDate: '20XX',
+    endDate: null,
+    description:
+      'Placeholder entry. Use this space for a second role, an internship or a freelance engagement. Keep each bullet concrete and outcome-focused.',
+    technologies: ['JavaScript', 'HTML', 'CSS'],
+    isPlaceholder: true,
+  },
+];
+
+export const MOCK_EDUCATION: Education[] = [
+  {
+    id: 'obour',
+    institution: 'Obour University for Science and Technology',
+    faculty: 'Faculty of Computer Science',
+    degree: "Bachelor's Degree in Computer Science",
+    startYear: '20XX',
+    endYear: null,
+    location: 'Egypt',
+    description:
+      'Studying computer science with a focus on programming fundamentals, data structures and system analysis. Update the study period and graduation year in the portfolio data service.',
+    relevantCourses: [
+      'Data Structures & Algorithms',
+      'Object-Oriented Programming',
+      'System Analysis & Design',
+      'Database Systems',
+    ],
+    isPlaceholder: true,
+  },
+];

@@ -1,0 +1,120 @@
+<section class="hero" id="home" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true">
+    <span class="hero__grid"></span>
+    <span class="hero__orb hero__orb--one"></span>
+    <span class="hero__orb hero__orb--two"></span>
+    <span class="hero__noise"></span>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__content">
+      @if (loading() && !settings()) {
+        <div class="hero__skeleton" aria-hidden="true">
+          <span class="skeleton" style="width: 13rem; height: 1.9rem; border-radius: 999px"></span>
+          <span class="skeleton" style="width: 80%; height: 4rem"></span>
+          <span class="skeleton" style="width: 55%; height: 2.2rem"></span>
+          <span class="skeleton" style="width: 100%; height: 4.4rem"></span>
+        </div>
+        <span class="sr-only">Loading portfolio introduction…</span>
+      } @else {
+        <span class="hero__status" appReveal>
+          <span class="status-dot" aria-hidden="true"></span>
+          {{ settings()?.availability }}
+        </span>
+
+        <h1 class="hero__title" id="hero-title" appReveal [revealDelay]="60">
+          <span class="hero__title-lead">{{ nameParts().lead }}</span>
+          <span class="hero__title-last text-gradient">{{ nameParts().last }}</span>
+        </h1>
+
+        <p class="hero__role" appReveal [revealDelay]="130">
+          <span class="hero__role-line" aria-hidden="true"></span>
+          <span class="hero__role-text">{{ settings()?.title }}</span>
+          <span class="hero__cursor" aria-hidden="true"></span>
+        </p>
+
+        <p class="hero__intro" appReveal [revealDelay]="200">
+          {{ settings()?.intro }}
+        </p>
+
+        <div class="hero__actions" appReveal [revealDelay]="270">
+          @if (settings()?.cvUrl) {
+            <a class="btn btn--primary" [href]="settings()?.cvUrl" download>
+              <span class="btn__icon"><app-icon name="download" /></span>
+              Download CV
+            </a>
+          }
+          <a class="btn btn--ghost" routerLink="/" fragment="contact">
+            Contact me
+            <span class="btn__icon"><app-icon name="arrow-right" /></span>
+          </a>
+        </div>
+
+        <div class="hero__meta" appReveal [revealDelay]="340">
+          <app-social-links [links]="socials()" />
+          <span class="hero__meta-divider" aria-hidden="true"></span>
+          <span class="hero__location">
+            <app-icon name="map-pin" />
+            {{ settings()?.location }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <div class="hero__visual" appReveal [revealDelay]="180">
+      <div class="portrait">
+        <span class="portrait__ring portrait__ring--outer" aria-hidden="true"></span>
+        <span class="portrait__ring portrait__ring--inner" aria-hidden="true"></span>
+
+        <div class="portrait__card">
+          <div class="portrait__frame">
+            @if (settings()?.profileImage) {
+              <img
+                class="portrait__image"
+                [src]="settings()?.profileImage"
+                [alt]="'Portrait placeholder of ' + (settings()?.name || 'Ahmed Ashour')"
+                width="480"
+                height="560"
+                loading="eager"
+              />
+            }
+            <span class="portrait__glow" aria-hidden="true"></span>
+          </div>
+
+          <div class="portrait__caption">
+            <span class="portrait__caption-name">{{ settings()?.shortName || 'Ahmed Ashour' }}</span>
+            <span class="portrait__caption-role">{{ settings()?.title || 'Front-End Developer' }}</span>
+          </div>
+        </div>
+
+        <div class="float-card float-card--tech" aria-hidden="true">
+          <span class="float-card__icon"><app-icon name="layers" /></span>
+          <span>
+            <span class="float-card__label">Specialising in</span>
+            <span class="float-card__value">Angular</span>
+          </span>
+        </div>
+
+        <div class="float-card float-card--code" aria-hidden="true">
+          <span class="float-card__icon"><app-icon name="braces" /></span>
+          <span>
+            <span class="float-card__label">Type-safe code</span>
+            <span class="float-card__value">TypeScript</span>
+          </span>
+        </div>
+
+        <div class="float-badge" aria-hidden="true">
+          <span class="float-badge__dot"></span>
+          Open to work
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#about" aria-label="Scroll to about section">
+    <span class="hero__scroll-text">Scroll</span>
+    <span class="hero__scroll-track" aria-hidden="true">
+      <span class="hero__scroll-thumb"></span>
+    </span>
+  </a>
+</section>

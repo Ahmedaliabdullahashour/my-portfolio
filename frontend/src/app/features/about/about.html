@@ -1,0 +1,94 @@
+<section class="section about" id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <app-section-heading
+      eyebrow="About me"
+      headingId="about-heading"
+      title="A developer who cares about the details"
+      subtitle="Interface engineering, clean architecture and the small interactions that make a product feel considered."
+    />
+
+    @if (loading() && !settings()) {
+      <div class="about__skeleton" aria-hidden="true">
+        <span class="skeleton" style="aspect-ratio: 4 / 5; border-radius: 1.5rem"></span>
+        <div class="about__skeleton-copy">
+          <span class="skeleton" style="height: 1.2rem; width: 90%"></span>
+          <span class="skeleton" style="height: 1.2rem; width: 100%"></span>
+          <span class="skeleton" style="height: 1.2rem; width: 75%"></span>
+          <span class="skeleton" style="height: 6rem; width: 100%"></span>
+        </div>
+      </div>
+    } @else {
+      <div class="about__grid">
+        <div class="about__visual" appReveal>
+          <div class="about__portrait">
+            <img
+              [src]="settings()?.profileImage"
+              [alt]="'Portrait placeholder of ' + (settings()?.name || 'Ahmed Ashour')"
+              width="480"
+              height="600"
+              loading="lazy"
+            />
+            <span class="about__portrait-glow" aria-hidden="true"></span>
+          </div>
+
+          @if (education(); as edu) {
+            <div class="about__edu">
+              <span class="about__edu-icon"><app-icon name="graduation-cap" /></span>
+              <div>
+                <span class="about__edu-label">Currently studying</span>
+                <strong class="about__edu-title">{{ edu.faculty }}</strong>
+                <span class="about__edu-meta">{{ edu.institution }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="about__body">
+          <div class="about__copy" appReveal [revealDelay]="80">
+            @for (paragraph of settings()?.bio ?? []; track $index) {
+              <p [class.about__lead]="$index === 0">{{ paragraph }}</p>
+            }
+          </div>
+
+          <div class="about__facts" appReveal [revealDelay]="160">
+            @for (fact of facts(); track fact.label) {
+              <div class="about__fact">
+                <span class="about__fact-icon"><app-icon [name]="fact.icon" /></span>
+                <span class="about__fact-label">{{ fact.label }}</span>
+                <span class="about__fact-value">{{ fact.value }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="about__goals" appReveal [revealDelay]="220">
+            <h3 class="about__goals-title">
+              <span class="about__goals-icon"><app-icon name="target" /></span>
+              Career goals
+            </h3>
+            <ul class="about__goals-list">
+              @for (goal of settings()?.careerGoals ?? []; track goal) {
+                <li>
+                  <span class="about__check"><app-icon name="check" /></span>
+                  {{ goal }}
+                </li>
+              }
+            </ul>
+          </div>
+
+          <div class="about__actions" appReveal [revealDelay]="280">
+            <a class="btn btn--ghost" routerLink="/" fragment="projects">
+              Explore my work
+              <span class="btn__icon"><app-icon name="arrow-right" /></span>
+            </a>
+            @if (settings()?.cvUrl) {
+              <a class="btn btn--link" [href]="settings()?.cvUrl" download>
+                <span class="btn__icon"><app-icon name="download" /></span>
+                Download CV
+              </a>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>

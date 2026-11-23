@@ -1,0 +1,98 @@
+<section class="section education" id="education" aria-labelledby="education-heading">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Education"
+      headingId="education-heading"
+      title="Academic foundation"
+      subtitle="Computer science fundamentals that shape how I approach software — from algorithms to system design."
+    />
+
+    @if (loading() && !education().length) {
+      <div class="education__skeleton" aria-hidden="true">
+        <span class="skeleton" style="height: 20rem; border-radius: 1.5rem"></span>
+        <span class="skeleton" style="height: 20rem; border-radius: 1.5rem"></span>
+      </div>
+      <span class="sr-only">Loading education…</span>
+    } @else if (!education().length) {
+      <app-empty-state
+        icon="graduation-cap"
+        title="No education entries yet"
+        message="Education records loaded from the API will be displayed here."
+        actionLabel="Reload education"
+        (action)="retry()"
+      />
+    } @else {
+      <div class="education__grid">
+        @for (item of education(); track item.id; let i = $index) {
+          <article class="edu" appReveal [revealDelay]="i * 80">
+            <div class="edu__top">
+              <span class="edu__icon"><app-icon name="graduation-cap" /></span>
+              <div class="edu__identity">
+                <h3 class="edu__institution">{{ item.institution }}</h3>
+                <p class="edu__faculty">{{ item.faculty }}</p>
+              </div>
+              @if (!item.endYear) {
+                <span class="edu__status">
+                  <span class="status-dot"></span>
+                  In progress
+                </span>
+              }
+            </div>
+
+            <dl class="edu__meta">
+              <div class="edu__meta-item">
+                <dt>Degree</dt>
+                <dd>{{ item.degree }}</dd>
+              </div>
+              <div class="edu__meta-item">
+                <dt>Study period</dt>
+                <dd>{{ item.startYear }} — {{ item.endYear || 'Present' }}</dd>
+              </div>
+              @if (item.location) {
+                <div class="edu__meta-item">
+                  <dt>Location</dt>
+                  <dd>{{ item.location }}</dd>
+                </div>
+              }
+            </dl>
+
+            <p class="edu__description">{{ item.description }}</p>
+
+            @if (item.isPlaceholder) {
+              <p class="edu__note">
+                <app-icon name="alert-triangle" />
+                Study dates and graduation year are placeholders — update them in the portfolio data service.
+              </p>
+            }
+          </article>
+        }
+
+        @if (courses().length) {
+          <aside class="courses" appReveal [revealDelay]="120" aria-label="Relevant coursework">
+            <div class="courses__head">
+              <span class="courses__icon"><app-icon name="file-code" /></span>
+              <div>
+                <h3 class="courses__title">Relevant coursework</h3>
+                <p class="courses__subtitle">Core computer science modules</p>
+              </div>
+            </div>
+
+            <ol class="courses__list">
+              @for (item of courses(); track item.course; let i = $index) {
+                <li class="courses__item">
+                  <span class="courses__index">{{ (i + 1).toString().padStart(2, '0') }}</span>
+                  <span class="courses__name">{{ item.course }}</span>
+                </li>
+              }
+            </ol>
+
+            <p class="courses__foot">
+              <app-icon name="lightbulb" />
+              Coursework supported by hands-on front-end projects and continuous self-study.
+            </p>
+          </aside>
+        }
+      </div>
+    }
+  </div>
+</section>

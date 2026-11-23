@@ -1,0 +1,87 @@
+.education__grid {display: grid;grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);gap: clamp(1.25rem, 3vw, 2rem);align-items: start;
+}
+.education__skeleton {display: grid;grid-template-columns: repeat(2, 1fr);gap: 1.25rem;
+}
+.edu { display: flex; flex-direction: column; gap: 1.4rem; padding: clamp(1.4rem, 3vw, 2rem); background: var(--bg-2); border: 1px solid var(--line); border-radius: 1rem;
+}
+.edu__top { display: flex; align-items: flex-start; gap: 1rem;
+}
+.edu__icon {  display: grid;  place-items: center;  width: 3rem;  height: 3rem;  flex-shrink: 0;  border-radius: 0.75rem;  background: var(--accent-soft);  color: var(--accent-bright);  font-size: 1.3rem;
+}
+.edu__identity { flex: 1; min-width: 0;
+}
+.edu__institution { margin-bottom: 0.35rem; font-size: clamp(1.1rem, 2vw, 1.35rem); font-weight: 600; line-height: 1.4; color: var(--text);
+}
+.edu__faculty { color: var(--muted); font-size: 0.88rem; line-height: 1.5;
+}
+.edu__status {display: inline-flex;align-items: center;gap: 0.4rem;padding: 0.35rem 0.7rem;border-radius: 0.5rem;background: var(--success-soft);color: var(--success);font-size: 0.7rem;font-weight: 500;white-space: nowrap;flex-shrink: 0;
+} 
+.edu__meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.85rem; padding: 1.1rem 0; border-block: 1px solid var(--line);
+}
+.edu__meta-item dt { margin-bottom: 0.35rem; color: var(--faint); font-size: 0.66rem; letter-spacing: 0.07em; text-transform: uppercase;
+}
+.edu__meta-item dd { color: var(--text-soft); font-size: 0.88rem; font-weight: 500; line-height: 1.5;
+}
+.edu__description { color: var(--muted); font-size: 0.9rem; line-height: 1.8;
+}
+.edu__note { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.8rem 0.9rem; border-left: 2px solid var(--accent); border-radius: 0.4rem; background: var(--bg-3); color: var(--muted); font-size: 0.8rem; line-height: 1.65;
+}
+.edu__note app-icon { flex-shrink: 0; margin-top: 0.15rem; color: var(--accent-bright);
+}
+.courses { display: flex; flex-direction: column; gap: 1.1rem; padding: clamp(1.35rem, 3vw, 1.8rem); background: var(--bg-2); border: 1px solid var(--line); border-radius: 1rem;
+}
+.courses__head {display: flex;align-items: center;gap: 0.8rem;
+}
+
+.courses__icon {display: grid;place-items: center;width: 2.4rem;height: 2.4rem;flex-shrink: 0;border-radius: 0.65rem;background: var(--accent-soft);color: var(--accent-bright);font-size: 1.1rem;
+}
+
+.courses__title {color: var(--text);font-size: 1rem;font-weight: 600;
+}
+
+.courses__subtitle {  margin-top: 0.2rem;  color: var(--muted);  font-size: 0.75rem;
+}
+
+.courses__list {display: flex;flex-direction: column;gap: 0.65rem;
+}
+
+.courses__item {display: flex;align-items: baseline;gap: 0.7rem;padding-bottom: 0.65rem;border-bottom: 1px solid var(--line);
+}
+
+.courses__item:last-child {padding-bottom: 0;border-bottom: none;
+}
+
+.courses__index {color: var(--accent-bright);font-family: var(--font-mono);font-size: 0.68rem;
+}
+
+.courses__name { color: var(--text-soft); font-size: 0.86rem; line-height: 1.5;
+}
+.courses__foot {display: flex;align-items: flex-start;gap: 0.55rem;margin-top: auto;padding-top: 0.9rem;border-top: 1px solid var(--line);color: var(--muted);font-size: 0.76rem;line-height: 1.6;
+}
+
+.courses__foot app-icon {color: var(--accent-bright);flex-shrink: 0;margin-top: 0.15rem;
+}
+@media (max-width: 960px) {
+  .education__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .education__skeleton {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .edu__top {flex-wrap: wrap;
+  }
+  .edu__status {margin-left: 3.9rem;
+  }
+  .edu__meta {grid-template-columns: repeat(2, minmax(0, 1fr));gap: 1rem;
+  }
+  .edu__meta-item:last-child {
+    grid-column: 1 / -1;
+  }
+  .edu,
+  .courses {padding: 1.2rem;
+  }
+}

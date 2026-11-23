@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" role="img" aria-label="Pulse weather interface preview">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071625"/>
+      <stop offset="0.6" stop-color="#081020"/>
+      <stop offset="1" stop-color="#050810"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1d4ed8" stop-opacity="0.55"/>
+      <stop offset="0.6" stop-color="#0e7490" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#0b1220" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="temp" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#9cc4ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="880" height="560" fill="url(#bg)"/>
+  <circle cx="720" cy="90" r="230" fill="#0e7490" opacity="0.14"/>
+  <circle cx="120" cy="500" r="200" fill="#2563eb" opacity="0.12"/>
+
+  <!-- current weather card -->
+  <rect x="64" y="56" width="500" height="304" rx="24" fill="url(#sky)" stroke="#2a4a7a" stroke-opacity="0.55"/>
+  <text x="98" y="102" font-family="Inter, sans-serif" font-size="10" letter-spacing="3" fill="#9cc4ff">CAIRO, EGYPT</text>
+  <text x="98" y="132" font-family="Sora, sans-serif" font-size="13" fill="#93a1bb">Monday · Clear sky</text>
+
+  <circle cx="372" cy="176" r="58" fill="url(#sun)" opacity="0.9"/>
+  <circle cx="372" cy="176" r="84" fill="#fbbf24" opacity="0.1"/>
+  <g stroke="#fbbf24" stroke-width="3" stroke-linecap="round" opacity="0.5">
+    <path d="M372 76v-14"/><path d="M372 290v-14"/>
+    <path d="M272 176h-14"/><path d="M486 176h-14"/>
+    <path d="M301 105l-10-10"/><path d="M453 257l-10-10"/>
+    <path d="M443 105l10-10"/><path d="M291 257l10-10"/>
+  </g>
+
+  <text x="98" y="250" font-family="Sora, sans-serif" font-size="82" font-weight="600" fill="url(#temp)" letter-spacing="-4">24°</text>
+  <text x="98" y="292" font-family="Inter, sans-serif" font-size="12" fill="#93a1bb">Feels like 26° · Humidity 38%</text>
+  <text x="98" y="320" font-family="Inter, sans-serif" font-size="11" fill="#64748b">H: 28°  L: 17°</text>
+
+  <!-- side stats -->
+  <rect x="588" y="56" width="228" height="146" rx="20" fill="#0b1627" stroke="#1e2c45"/>
+  <text x="616" y="90" font-family="Inter, sans-serif" font-size="9" letter-spacing="2" fill="#64748b">WIND</text>
+  <text x="616" y="126" font-family="Sora, sans-serif" font-size="30" font-weight="600" fill="#e9eefb">12</text>
+  <text x="664" y="126" font-family="Inter, sans-serif" font-size="12" fill="#93a1bb">km/h</text>
+  <g stroke="#63a4ff" stroke-width="2" stroke-linecap="round" opacity="0.7">
+    <path d="M616 152h96"/><path d="M616 160h64"/><path d="M616 168h78"/>
+  </g>
+
+  <rect x="588" y="214" width="228" height="146" rx="20" fill="#0b1627" stroke="#1e2c45"/>
+  <text x="616" y="248" font-family="Inter, sans-serif" font-size="9" letter-spacing="2" fill="#64748b">UV INDEX</text>
+  <text x="616" y="284" font-family="Sora, sans-serif" font-size="30" font-weight="600" fill="#e9eefb">5</text>
+  <text x="636" y="284" font-family="Inter, sans-serif" font-size="12" fill="#fbbf24">Moderate</text>
+  <rect x="616" y="306" width="172" height="8" rx="4" fill="#16233a"/>
+  <rect x="616" y="306" width="86" height="8" rx="4" fill="#fbbf24" opacity="0.85"/>
+  <text x="616" y="336" font-family="Inter, sans-serif" font-size="10" fill="#64748b">Use sun protection midday</text>
+
+  <!-- forecast -->
+  <g>
+    <rect x="64" y="388" width="152" height="118" rx="16" fill="#0b1627" stroke="#1e2c45"/>
+    <text x="88" y="418" font-family="Inter, sans-serif" font-size="10" letter-spacing="1.5" fill="#64748b">TUE</text>
+    <circle cx="118" cy="450" r="17" fill="#fbbf24" opacity="0.85"/>
+    <text x="88" y="492" font-family="Sora, sans-serif" font-size="18" fill="#e9eefb">27°</text>
+    <text x="150" y="492" font-family="Inter, sans-serif" font-size="12" fill="#64748b">-18°</text>
+  </g>
+  <g>
+    <rect x="232" y="388" width="152" height="118" rx="16" fill="#0b1627" stroke="#1e2c45"/>
+    <text x="256" y="418" font-family="Inter, sans-serif" font-size="10" letter-spacing="1.5" fill="#64748b">WED</text>
+    <path d="M272 448a14 14 0 0 1 26-4 9 9 0 0 1 5 17h-26a9 9 0 0 1-5-13Z" fill="#93a1bb" opacity="0.8"/>
+    <text x="256" y="492" font-family="Sora, sans-serif" font-size="18" fill="#e9eefb">25°</text>
+    <text x="318" y="492" font-family="Inter, sans-serif" font-size="12" fill="#64748b">-17°</text>
+  </g>
+  <g>
+    <rect x="400" y="388" width="152" height="118" rx="16" fill="#0b1627" stroke="#1e2c45"/>
+    <text x="424" y="418" font-family="Inter, sans-serif" font-size="10" letter-spacing="1.5" fill="#64748b">THU</text>
+    <circle cx="454" cy="450" r="17" fill="#fbbf24" opacity="0.85"/>
+    <text x="424" y="492" font-family="Sora, sans-serif" font-size="18" fill="#e9eefb">29°</text>
+    <text x="486" y="492" font-family="Inter, sans-serif" font-size="12" fill="#64748b">-20°</text>
+  </g>
+  <g>
+    <rect x="568" y="388" width="152" height="118" rx="16" fill="#0b1627" stroke="#1e2c45"/>
+    <text x="592" y="418" font-family="Inter, sans-serif" font-size="10" letter-spacing="1.5" fill="#64748b">FRI</text>
+    <path d="M608 448a14 14 0 0 1 26-4 9 9 0 0 1 5 17h-26a9 9 0 0 1-5-13Z" fill="#93a1bb" opacity="0.8"/>
+    <text x="592" y="492" font-family="Sora, sans-serif" font-size="18" fill="#e9eefb">26°</text>
+    <text x="654" y="492" font-family="Inter, sans-serif" font-size="12" fill="#64748b">-18°</text>
+  </g>
+  <g>
+    <rect x="736" y="388" width="80" height="118" rx="16" fill="#0b1627" stroke="#1e2c45"/>
+    <text x="756" y="418" font-family="Inter, sans-serif" font-size="10" letter-spacing="1.5" fill="#64748b">SAT</text>
+    <circle cx="776" cy="450" r="15" fill="#fbbf24" opacity="0.7"/>
+    <text x="756" y="492" font-family="Sora, sans-serif" font-size="16" fill="#e9eefb">30°</text>
+  </g>
+</svg>

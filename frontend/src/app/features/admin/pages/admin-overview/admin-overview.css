@@ -1,0 +1,245 @@
+.overview {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.overview__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-top: 0.35rem;
+}
+
+.overview__subtitle {
+  max-width: 40rem;
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.overview__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(19, 29, 50, 0.4);
+}
+
+.stat__icon {
+  color: var(--accent-bright);
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.stat__value {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.stat__label {
+  color: var(--faint);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+.overview__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.overview__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.overview__section-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.overview__section-sub {
+  font-size: 0.8rem;
+  color: var(--faint);
+  margin-top: 0.2rem;
+}
+
+.overview__loading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  padding: 1.5rem 0;
+}
+
+.overview__empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--muted);
+  border-radius: var(--r-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.overview__messages {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.msg-row {
+  display: grid;
+  grid-template-columns: auto 14rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.86rem;
+  transition: background-color 0.2s var(--ease);
+}
+
+.msg-row:last-child {
+  border-bottom: none;
+}
+
+.msg-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.msg-row.is-unread {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.msg-row__dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--faint);
+}
+
+.msg-row.is-unread .msg-row__dot {
+  background: var(--accent-bright);
+  box-shadow: 0 0 0 3px rgba(99, 164, 255, 0.25);
+}
+
+.msg-row__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.msg-row__sender {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.msg-row__email {
+  font-size: 0.76rem;
+  color: var(--faint);
+}
+
+.msg-row__subject {
+  color: var(--text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.msg-row__date {
+  font-size: 0.78rem;
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.overview__modules {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.75rem;
+}
+
+.module {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: linear-gradient(160deg, rgba(19, 29, 50, 0.55), rgba(8, 13, 24, 0.4));
+  transition:
+    border-color 0.3s var(--ease),
+    transform 0.3s var(--ease);
+}
+
+.module:hover {
+  border-color: var(--accent-line);
+  transform: translateY(-2px);
+}
+
+.module__icon {
+  color: var(--accent-bright);
+  font-size: 1.25rem;
+  margin-bottom: 0.3rem;
+}
+
+.module__name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.module__desc {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  padding-right: 1.5rem;
+}
+
+.module__arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--faint);
+  font-size: 0.9rem;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 960px) {
+  .overview__stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .msg-row {
+    grid-template-columns: auto 1fr auto;
+  }
+  .msg-row__subject {
+    display: none;
+  }
+}

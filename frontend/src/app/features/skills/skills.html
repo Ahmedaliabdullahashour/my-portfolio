@@ -1,0 +1,56 @@
+<section class="section section--tint skills" id="skills" aria-labelledby="skills-heading">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Skills & tools"
+      headingId="skills-heading"
+      title="The stack I build with"
+      subtitle="A growing toolkit spanning front-end engineering, backend fundamentals and computer science foundations."
+      align="center"
+    />
+
+    @if (loading() && !skills().length) {
+      <div class="skills__grid" aria-hidden="true">
+        @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track item) {
+          <span class="skeleton" style="height: 12.5rem; border-radius: 1rem"></span>
+        }
+      </div>
+      <span class="sr-only">Loading skills…</span>
+    } @else if (!skills().length) {
+      <app-empty-state
+        icon="target"
+        title="Skills are on their way"
+        message="No skills have been published yet. Once the API is connected they will appear here automatically."
+        actionLabel="Reload skills"
+        (action)="retry()"
+      />
+    } @else {
+      <div class="skills__filters" role="group" aria-label="Filter skills by category" appReveal>
+        @for (filter of filters(); track filter.label) {
+          <button
+            type="button"
+            class="skills__filter"
+            [class.is-active]="activeFilter() === filter.label"
+            [attr.aria-pressed]="activeFilter() === filter.label"
+            (click)="setFilter(filter.label)"
+          >
+            {{ filter.label }}
+            <span class="skills__filter-count">{{ filter.count }}</span>
+          </button>
+        }
+      </div>
+
+      <div class="skills__grid">
+        @for (skill of visibleSkills(); track skill.id; let i = $index) {
+          <div appReveal [revealDelay]="i * 40">
+            <app-skill-card [skill]="skill" />
+          </div>
+        }
+      </div>
+
+      <p class="skills__note" appReveal>
+        Levels are a personal self-assessment and are updated as I keep learning. Every skill above is part of
+        my day-to-day workflow.
+      </p>
+    }
+  </div>
+</section>

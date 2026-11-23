@@ -1,0 +1,25 @@
+<section class="section projects" id="projects" aria-labelledby="projects-heading">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Selected work"
+      headingId="projects-heading"
+      title="Projects that show how I build"
+      subtitle="A selection of interface and full-stack work. Sample projects are clearly marked so real work can replace them without guesswork."
+    />
+
+    <app-project-grid [projects]="projects()" [loading]="loading()" />
+
+    @if (projects().length) {
+      <div class="projects__footer" appReveal>
+        <p class="projects__note">
+          <span class="projects__note-icon"><app-icon name="terminal" /></span>
+          Every project card is driven by the same typed data source — ready for the REST API.
+        </p>
+        <a class="btn btn--ghost btn--sm" routerLink="/projects">
+          Open project archive
+          <span class="btn__icon"><app-icon name="arrow-up-right" /></span>
+        </a>
+      </div>
+    }
+  </div>
+</section>

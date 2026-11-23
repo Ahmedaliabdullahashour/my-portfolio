@@ -1,0 +1,222 @@
+<section class="section section--tint contact" id="contact" aria-labelledby="contact-heading">
+  <div class="contact__bg" aria-hidden="true">
+    <span class="contact__orb"></span>
+    <span class="contact__grid"></span>
+  </div>
+
+  <div class="container contact__inner">
+    <div class="contact__intro" appReveal>
+      <app-section-heading
+        eyebrow="Contact"
+        headingId="contact-heading"
+        title="Let's build something worth shipping"
+        subtitle="Whether it is a role, an internship or a project idea, I would like to hear about it. I usually reply within a couple of days."
+      />
+
+      <ul class="contact__details">
+        @if (settings()?.email) {
+          <li class="contact__detail">
+            <span class="contact__detail-icon"><app-icon name="mail" /></span>
+            <div class="contact__detail-body">
+              <span class="contact__detail-label">Email</span>
+              <a class="contact__detail-value" [href]="'mailto:' + settings()?.email">
+                {{ settings()?.email }}
+              </a>
+            </div>
+            <button
+              type="button"
+              class="contact__copy"
+              aria-label="Copy email address"
+              title="Copy email address"
+              (click)="copyEmail()"
+            >
+              <app-icon name="copy" />
+            </button>
+          </li>
+        }
+
+        @if (settings()?.location) {
+          <li class="contact__detail">
+            <span class="contact__detail-icon"><app-icon name="map-pin" /></span>
+            <div class="contact__detail-body">
+              <span class="contact__detail-label">Location</span>
+              <span class="contact__detail-value">{{ settings()?.location }}</span>
+            </div>
+          </li>
+        }
+
+        <li class="contact__detail">
+          <span class="contact__detail-icon contact__detail-icon--success"><app-icon name="clock" /></span>
+          <div class="contact__detail-body">
+            <span class="contact__detail-label">Availability</span>
+            <span class="contact__detail-value">{{ settings()?.availability }}</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="contact__socials">
+        <span class="contact__socials-label">Find me online</span>
+        <app-social-links [links]="socials()" />
+      </div>
+    </div>
+
+    <div class="contact__panel" appReveal [revealDelay]="100">
+      <div class="contact__panel-head">
+        <span class="contact__panel-icon"><app-icon name="send" /></span>
+        <div>
+          <h2 class="contact__panel-title">Send a message</h2>
+          <p class="contact__panel-subtitle">All fields are required.</p>
+        </div>
+      </div>
+
+      @if (feedback(); as state) {
+        <div
+          class="alert"
+          [class.alert--success]="state.type === 'success'"
+          [class.alert--error]="state.type === 'error'"
+          role="status"
+          aria-live="polite"
+        >
+          <app-icon [name]="state.type === 'success' ? 'check-circle' : 'alert-circle'" />
+          <span>{{ state.message }}</span>
+        </div>
+      }
+
+      <form class="contact__form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <div class="contact__row">
+          <div class="field">
+            <label class="field__label" for="contact-name">
+              Full name<span class="req" aria-hidden="true">*</span>
+            </label>
+            <div class="field__control" [class.is-invalid]="showError(nameControl)">
+              <input
+                id="contact-name"
+                type="text"
+                formControlName="name"
+                autocomplete="name"
+                placeholder="Your full name"
+                [attr.aria-invalid]="showError(nameControl)"
+                [attr.aria-describedby]="showError(nameControl) ? 'contact-name-error' : null"
+              />
+            </div>
+            @if (showError(nameControl)) {
+              <p class="field__error" id="contact-name-error">
+                <app-icon name="alert-circle" />
+                @if (nameControl.hasError('required')) {
+                  Please enter your name.
+                } @else {
+                  Your name should be between 2 and 80 characters.
+                }
+              </p>
+            }
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="contact-email">
+              Email<span class="req" aria-hidden="true">*</span>
+            </label>
+            <div class="field__control" [class.is-invalid]="showError(emailControl)">
+              <input
+                id="contact-email"
+                type="email"
+                formControlName="email"
+                autocomplete="email"
+                placeholder="you@company.com"
+                [attr.aria-invalid]="showError(emailControl)"
+                [attr.aria-describedby]="showError(emailControl) ? 'contact-email-error' : null"
+              />
+            </div>
+            @if (showError(emailControl)) {
+              <p class="field__error" id="contact-email-error">
+                <app-icon name="alert-circle" />
+                @if (emailControl.hasError('required')) {
+                  Please enter your email address.
+                } @else {
+                  Enter a valid email address, for example name@example.com.
+                }
+              </p>
+            }
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="contact-subject">
+            Subject<span class="req" aria-hidden="true">*</span>
+          </label>
+          <div class="field__control" [class.is-invalid]="showError(subjectControl)">
+            <input
+              id="contact-subject"
+              type="text"
+              formControlName="subject"
+              placeholder="What would you like to talk about?"
+              [attr.aria-invalid]="showError(subjectControl)"
+              [attr.aria-describedby]="showError(subjectControl) ? 'contact-subject-error' : null"
+            />
+          </div>
+          @if (showError(subjectControl)) {
+            <p class="field__error" id="contact-subject-error">
+              <app-icon name="alert-circle" />
+              @if (subjectControl.hasError('required')) {
+                Please add a subject.
+              } @else {
+                The subject should be between 3 and 120 characters.
+              }
+            </p>
+          }
+        </div>
+
+        <div class="field">
+          <div class="contact__label-row">
+            <label class="field__label" for="contact-message">
+              Message<span class="req" aria-hidden="true">*</span>
+            </label>
+            <span class="field__hint">{{ messageControl.value.length }} / 2000</span>
+          </div>
+          <div class="field__control" [class.is-invalid]="showError(messageControl)">
+            <textarea
+              id="contact-message"
+              formControlName="message"
+              rows="5"
+              placeholder="Tell me a little about the role, project or idea…"
+              [attr.aria-invalid]="showError(messageControl)"
+              [attr.aria-describedby]="showError(messageControl) ? 'contact-message-error' : 'contact-message-hint'"
+            ></textarea>
+          </div>
+          @if (showError(messageControl)) {
+            <p class="field__error" id="contact-message-error">
+              <app-icon name="alert-circle" />
+              @if (messageControl.hasError('required')) {
+                Please write a message.
+              } @else if (messageControl.hasError('minlength')) {
+                Your message needs at least 20 characters.
+              } @else {
+                Your message cannot exceed 2000 characters.
+              }
+            </p>
+          } @else {
+            <p class="field__hint" id="contact-message-hint">
+              Minimum 20 characters. Be as specific as you like.
+            </p>
+          }
+        </div>
+
+        <div class="contact__form-foot">
+          <button type="submit" class="btn btn--primary contact__submit" [disabled]="sending()">
+            @if (sending()) {
+              <span class="spinner" aria-hidden="true"></span>
+              Sending…
+            } @else {
+              Send message
+              <span class="btn__icon"><app-icon name="send" /></span>
+            }
+          </button>
+
+          <p class="contact__privacy">
+            <app-icon name="shield" />
+            Your details are only used to reply to this message.
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

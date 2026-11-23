@@ -1,0 +1,75 @@
+<header class="nav" [class.nav--scrolled]="scrolled()" [class.nav--open]="menuOpen()" (keydown.escape)="onEscape()">
+  <div class="container nav__inner">
+    <a class="brand" routerLink="/" fragment="home" (click)="closeMenu()" aria-label="Ahmed Ashour — back to top">
+      <span class="brand__mark" aria-hidden="true">{{ initials() }}</span>
+      <span class="brand__text">
+        <span class="brand__name">{{ settings()?.shortName || 'Ahmed Ashour' }}</span>
+        <span class="brand__role">{{ settings()?.title || 'Front-End Developer' }}</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      @for (link of links; track link.fragment) {
+        <a
+          class="nav__link"
+          [routerLink]="['/']"
+          [fragment]="link.fragment"
+          [class.is-active]="activeFragment() === link.fragment"
+          [attr.aria-current]="activeFragment() === link.fragment ? 'page' : null"
+          (click)="navigate(link.fragment, $event)"
+        >
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="nav__actions">
+      <a class="btn btn--primary btn--sm nav__cta" routerLink="/" fragment="contact" (click)="navigate('contact', $event)">
+        Let's talk
+        <span class="btn__icon"><app-icon name="arrow-up-right" /></span>
+      </a>
+
+      <button
+        type="button"
+        class="nav__toggle"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="mobile-navigation"
+        [attr.aria-label]="menuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
+        (click)="toggleMenu()"
+      >
+        <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+      </button>
+    </div>
+  </div>
+
+  @if (menuOpen()) {
+    <div class="mobile" id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Site navigation">
+      <nav class="mobile__nav" aria-label="Mobile primary">
+        @for (link of links; track link.fragment; let i = $index) {
+          <a
+            class="mobile__link"
+            [routerLink]="['/']"
+            [fragment]="link.fragment"
+            [class.is-active]="activeFragment() === link.fragment"
+            [style.animation-delay.ms]="60 + i * 45"
+            (click)="navigate(link.fragment, $event)"
+          >
+            <span class="mobile__index">0{{ i + 1 }}</span>
+            {{ link.label }}
+            <span class="mobile__arrow"><app-icon name="arrow-up-right" /></span>
+          </a>
+        }
+      </nav>
+
+      <div class="mobile__footer">
+        <div class="mobile__contact">
+          <span class="eyebrow">Get in touch</span>
+          @if (settings()?.email) {
+            <a class="mobile__email" [href]="'mailto:' + settings()?.email">{{ settings()?.email }}</a>
+          }
+        </div>
+        <app-social-links [links]="settings()?.socials || []" />
+      </div>
+    </div>
+  }
+</header>

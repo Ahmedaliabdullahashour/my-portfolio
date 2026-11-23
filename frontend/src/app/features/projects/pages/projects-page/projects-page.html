@@ -1,0 +1,29 @@
+<section class="archive" aria-labelledby="archive-heading">
+  <div class="archive__bg" aria-hidden="true"></div>
+  <div class="container">
+    <a class="archive__back" routerLink="/" fragment="projects">
+      <app-icon name="arrow-right" />
+      Back to portfolio
+    </a>
+
+    <app-section-heading
+      eyebrow="Project archive"
+      headingId="archive-heading"
+      title="Everything I have built"
+      subtitle="The complete collection of projects published from the portfolio data source, with categories, stack details and links."
+    />
+
+    <app-project-grid [projects]="projects()" [loading]="loading()" />
+
+    <div class="archive__cta">
+      <div>
+        <h2 class="archive__cta-title">Have a project in mind?</h2>
+        <p class="archive__cta-text">I am open to collaborations, internships and junior front-end roles.</p>
+      </div>
+      <a class="btn btn--primary" routerLink="/" fragment="contact">
+        Start a conversation
+        <span class="btn__icon"><app-icon name="arrow-right" /></span>
+      </a>
+    </div>
+  </div>
+</section>
