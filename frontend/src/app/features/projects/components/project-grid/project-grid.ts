@@ -9,8 +9,6 @@ import { RevealDirective } from '../../../../shared/directives/reveal.directive'
 type Filter = ProjectCategory | 'All';
 
 const CATEGORY_ORDER: ProjectCategory[] = ['Frontend', 'Full-Stack', 'UI / UX'];
-
-/** Shared, filterable project grid + details dialog. */
 @Component({
   selector: 'app-project-grid',
   imports: [ProjectCardComponent, ProjectDialogComponent, EmptyStateComponent, RevealDirective],

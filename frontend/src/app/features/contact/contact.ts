@@ -112,7 +112,7 @@ export class ContactComponent {
   }
 
   private focusFirstInvalid(): void {
-    // Wait for the invalid state classes to be rendered before focusing.
+    
     setTimeout(() => {
       const firstInvalid = document.querySelector<HTMLElement>(
         'form .field__control.is-invalid input, form .field__control.is-invalid textarea',

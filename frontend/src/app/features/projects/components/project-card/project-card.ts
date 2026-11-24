@@ -4,10 +4,11 @@ import type { Project } from '../../../../core/models';
 import { ToastService } from '../../../../core/services/toast.service';
 import { IconComponent } from '../../../../shared/components/icon/icon';
 import { TruncatePipe } from '../../../../shared/pipes/truncate.pipe';
+import { AssetUrlPipe } from '../../../../shared/pipes/asset-url.pipe';
 
 @Component({
   selector: 'app-project-card',
-  imports: [IconComponent, TruncatePipe],
+  imports: [IconComponent, TruncatePipe, AssetUrlPipe],
   templateUrl: './project-card.html',
   styleUrl: './project-card.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +23,14 @@ export class ProjectCardComponent {
   protected readonly extraTechnologies = computed(() =>
     Math.max(0, this.project().technologies.length - this.visibleTechnologies().length),
   );
+
+  protected onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.dataset['fallback']) {
+      img.dataset['fallback'] = 'true';
+      img.src = '/assets/images/projects/aurora.svg';
+    }
+  }
 
   protected openDetails(): void {
     this.view.emit(this.project());

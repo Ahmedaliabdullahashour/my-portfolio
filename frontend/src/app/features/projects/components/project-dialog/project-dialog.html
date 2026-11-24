@@ -12,7 +12,7 @@
     </button>
 
     <div class="dialog__media">
-      <img [src]="project().image" [alt]="project().imageAlt || project().title + ' preview'" />
+      <img [src]="project().image | assetUrl" (error)="onImageError($event)" [alt]="project().imageAlt || project().title + ' preview'" />
       <span class="dialog__media-shade" aria-hidden="true"></span>
       @if (project().isDemo) {
         <span class="badge-demo dialog__demo">Demo content</span>

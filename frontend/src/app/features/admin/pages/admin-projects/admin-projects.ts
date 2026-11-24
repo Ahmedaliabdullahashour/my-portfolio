@@ -2,15 +2,19 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { PortfolioApiService, type UploadResponse } from '../../../../core/services/portfolio-api.service';
+import {
+  PortfolioApiService,
+  type UploadResponse,
+} from '../../../../core/services/portfolio-api.service';
 import { PortfolioStore } from '../../../../core/services/portfolio-store.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { IconComponent } from '../../../../shared/components/icon/icon';
+import { AssetUrlPipe } from '../../../../shared/pipes/asset-url.pipe';
 import type { Project, ProjectCategory } from '../../../../core/models';
 
 @Component({
   selector: 'app-admin-projects',
-  imports: [ReactiveFormsModule, RouterLink, IconComponent],
+  imports: [ReactiveFormsModule, RouterLink, IconComponent, AssetUrlPipe],
   template: `
     <div class="admin-page">
       <header class="admin-page__head">
@@ -20,7 +24,9 @@ import type { Project, ProjectCategory } from '../../../../core/models';
             Back to overview
           </a>
           <h1 class="admin-page__title">Project Management</h1>
-          <p class="admin-page__desc">Add, edit, reorder, or delete projects featured in your developer portfolio.</p>
+          <p class="admin-page__desc">
+            Add, edit, reorder, or delete projects featured in your developer portfolio.
+          </p>
         </div>
         <button type="button" class="btn btn--primary" (click)="openCreateModal()">
           <app-icon name="plus" />
@@ -62,7 +68,12 @@ import type { Project, ProjectCategory } from '../../../../core/models';
                   <td>
                     <div class="table-proj-cell">
                       @if (proj.image) {
-                        <img [src]="proj.image" [alt]="proj.title" class="table-proj-thumb" />
+                        <img
+                          [src]="proj.image | assetUrl"
+                          (error)="onImageError($event)"
+                          [alt]="proj.title"
+                          class="table-proj-thumb"
+                        />
                       } @else {
                         <div class="table-proj-placeholder"><app-icon name="folder" /></div>
                       }
@@ -133,7 +144,13 @@ import type { Project, ProjectCategory } from '../../../../core/models';
                 <div class="field">
                   <label class="field__label" for="proj-title">Project Title *</label>
                   <div class="field__control">
-                    <input id="proj-title" type="text" formControlName="title" placeholder="e.g. Aurora Analytics" required />
+                    <input
+                      id="proj-title"
+                      type="text"
+                      formControlName="title"
+                      placeholder="e.g. Aurora Analytics"
+                      required
+                    />
                   </div>
                 </div>
 
@@ -152,14 +169,25 @@ import type { Project, ProjectCategory } from '../../../../core/models';
               <div class="field">
                 <label class="field__label" for="proj-desc">Short Description *</label>
                 <div class="field__control">
-                  <textarea id="proj-desc" rows="2" formControlName="description" placeholder="Short summary displayed on cards" required></textarea>
+                  <textarea
+                    id="proj-desc"
+                    rows="2"
+                    formControlName="description"
+                    placeholder="Short summary displayed on cards"
+                    required
+                  ></textarea>
                 </div>
               </div>
 
               <div class="field">
                 <label class="field__label" for="proj-long-desc">Detailed Description</label>
                 <div class="field__control">
-                  <textarea id="proj-long-desc" rows="3" formControlName="longDescription" placeholder="Full details displayed in project dialog modal"></textarea>
+                  <textarea
+                    id="proj-long-desc"
+                    rows="3"
+                    formControlName="longDescription"
+                    placeholder="Full details displayed in project dialog modal"
+                  ></textarea>
                 </div>
               </div>
 
@@ -167,7 +195,12 @@ import type { Project, ProjectCategory } from '../../../../core/models';
                 <div class="field">
                   <label class="field__label" for="proj-tech">Technologies (comma separated)</label>
                   <div class="field__control">
-                    <input id="proj-tech" type="text" formControlName="technologiesInput" placeholder="Angular, TypeScript, CSS, Signals" />
+                    <input
+                      id="proj-tech"
+                      type="text"
+                      formControlName="technologiesInput"
+                      placeholder="Angular, TypeScript, CSS, Signals"
+                    />
                   </div>
                 </div>
 
@@ -183,14 +216,24 @@ import type { Project, ProjectCategory } from '../../../../core/models';
                 <div class="field">
                   <label class="field__label" for="proj-live">Live Demo URL</label>
                   <div class="field__control">
-                    <input id="proj-live" type="url" formControlName="liveUrl" placeholder="https://example.com" />
+                    <input
+                      id="proj-live"
+                      type="url"
+                      formControlName="liveUrl"
+                      placeholder="https://example.com"
+                    />
                   </div>
                 </div>
 
                 <div class="field">
                   <label class="field__label" for="proj-github">GitHub Repository URL</label>
                   <div class="field__control">
-                    <input id="proj-github" type="url" formControlName="githubUrl" placeholder="https://github.com/..." />
+                    <input
+                      id="proj-github"
+                      type="url"
+                      formControlName="githubUrl"
+                      placeholder="https://github.com/..."
+                    />
                   </div>
                 </div>
               </div>
@@ -200,7 +243,11 @@ import type { Project, ProjectCategory } from '../../../../core/models';
                 <label class="field__label">Project Image</label>
                 <div class="upload-control">
                   <div class="field__control flex-1">
-                    <input type="text" formControlName="image" placeholder="Image URL or upload a file" />
+                    <input
+                      type="text"
+                      formControlName="image"
+                      placeholder="Image URL or upload a file"
+                    />
                   </div>
                   <label class="btn btn--ghost btn--sm upload-btn">
                     @if (uploading()) {
@@ -210,16 +257,34 @@ import type { Project, ProjectCategory } from '../../../../core/models';
                       <app-icon name="upload" />
                       Upload File
                     }
-                    <input type="file" (change)="onFileSelected($event)" accept="image/*" [disabled]="uploading()" hidden />
+                    <input
+                      type="file"
+                      (change)="onFileSelected($event)"
+                      accept="image/*"
+                      [disabled]="uploading()"
+                      hidden
+                    />
                   </label>
                 </div>
+                @if (form.get('image')?.value) {
+                  <div class="image-preview" style="margin-top: 0.5rem; display: flex; align-items: center; gap: 0.6rem;">
+                    <img [src]="form.get('image')?.value | assetUrl" (error)="onImageError($event)" alt="Preview" class="table-proj-thumb" />
+                    <span style="font-size: 0.75rem; color: var(--muted); word-break: break-all;">{{ form.get('image')?.value }}</span>
+                  </div>
+                }
               </div>
 
               <div class="form-row form-row--inline">
                 <div class="field">
                   <label class="field__label" for="proj-order">Display Order</label>
                   <div class="field__control">
-                    <input id="proj-order" type="number" formControlName="order" min="0" style="width: 6rem" />
+                    <input
+                      id="proj-order"
+                      type="number"
+                      formControlName="order"
+                      min="0"
+                      style="width: 6rem"
+                    />
                   </div>
                 </div>
 
@@ -233,7 +298,11 @@ import type { Project, ProjectCategory } from '../../../../core/models';
 
               <footer class="modal-form__actions">
                 <button type="button" class="btn btn--ghost" (click)="closeModal()">Cancel</button>
-                <button type="submit" class="btn btn--primary" [disabled]="saving() || form.invalid">
+                <button
+                  type="submit"
+                  class="btn btn--primary"
+                  [disabled]="saving() || form.invalid"
+                >
                   @if (saving()) {
                     <app-icon name="refresh" class="spin" />
                     Saving...
@@ -259,11 +328,21 @@ import type { Project, ProjectCategory } from '../../../../core/models';
               </button>
             </header>
             <div class="modal-card__body">
-              <p>Are you sure you want to delete <strong>{{ target.title }}</strong>? This action cannot be undone.</p>
+              <p>
+                Are you sure you want to delete <strong>{{ target.title }}</strong>? This action
+                cannot be undone.
+              </p>
             </div>
             <footer class="modal-form__actions">
-              <button type="button" class="btn btn--ghost" (click)="projectToDelete.set(null)">Cancel</button>
-              <button type="button" class="btn btn--danger" [disabled]="deleting()" (click)="executeDelete(target)">
+              <button type="button" class="btn btn--ghost" (click)="projectToDelete.set(null)">
+                Cancel
+              </button>
+              <button
+                type="button"
+                class="btn btn--danger"
+                [disabled]="deleting()"
+                (click)="executeDelete(target)"
+              >
                 @if (deleting()) {
                   <app-icon name="refresh" class="spin" />
                   Deleting...
@@ -625,7 +704,9 @@ import type { Project, ProjectCategory } from '../../../../core/models';
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     @media (max-width: 640px) {
@@ -735,7 +816,9 @@ export class AdminProjectsPage {
     this.api.uploadFile(file).subscribe({
       next: (res: UploadResponse) => {
         this.uploading.set(false);
-        this.form.patchValue({ image: res.url });
+        this.form.patchValue({
+          image: res.url,
+        });
         this.toast.show('Image uploaded successfully.', 'success');
       },
       error: (err) => {
@@ -744,6 +827,14 @@ export class AdminProjectsPage {
         this.toast.show(msg, 'error');
       },
     });
+  }
+
+  protected onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.dataset['fallback']) {
+      img.dataset['fallback'] = 'true';
+      img.src = '/assets/images/projects/aurora.svg';
+    }
   }
 
   saveProject(): void {
@@ -771,14 +862,15 @@ export class AdminProjectsPage {
     };
 
     const id = this.editingId();
-    const request$ = id
-      ? this.api.updateProject(id, payload)
-      : this.api.createProject(payload);
+    const request$ = id ? this.api.updateProject(id, payload) : this.api.createProject(payload);
 
     request$.subscribe({
       next: () => {
         this.saving.set(false);
-        this.toast.show(id ? 'Project updated successfully.' : 'Project created successfully.', 'success');
+        this.toast.show(
+          id ? 'Project updated successfully.' : 'Project created successfully.',
+          'success',
+        );
         this.closeModal();
         this.loadProjects();
         this.store.reloadProjects();

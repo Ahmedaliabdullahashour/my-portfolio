@@ -2,7 +2,8 @@
   <div class="project__media">
     <img
       class="project__image"
-      [src]="project().image"
+      [src]="project().image | assetUrl"
+      (error)="onImageError($event)"
       [alt]="project().imageAlt || project().title + ' preview'"
       width="880"
       height="560"

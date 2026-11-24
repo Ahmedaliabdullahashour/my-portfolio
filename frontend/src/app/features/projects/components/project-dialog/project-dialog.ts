@@ -13,10 +13,11 @@ import {
 import type { Project } from '../../../../core/models';
 import { ToastService } from '../../../../core/services/toast.service';
 import { IconComponent } from '../../../../shared/components/icon/icon';
+import { AssetUrlPipe } from '../../../../shared/pipes/asset-url.pipe';
 
 @Component({
   selector: 'app-project-dialog',
-  imports: [IconComponent],
+  imports: [IconComponent, AssetUrlPipe],
   templateUrl: './project-dialog.html',
   styleUrl: './project-dialog.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,6 +33,14 @@ export class ProjectDialogComponent implements OnInit, OnDestroy {
 
   readonly project = input.required<Project>();
   readonly closed = output<void>();
+
+  protected onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.dataset['fallback']) {
+      img.dataset['fallback'] = 'true';
+      img.src = '/assets/images/projects/aurora.svg';
+    }
+  }
 
   ngOnInit(): void {
     this.previouslyFocused = document.activeElement as HTMLElement | null;

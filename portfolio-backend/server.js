@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
@@ -19,25 +20,32 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Health check
-app.get('/', (req, res) => res.json({ status: 'Portfolio API running', env: process.env.NODE_ENV || 'development' }));
+// Serve uploaded assets statically from both /uploads and /api/uploads
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+app.use('/uploads', express.static(uploadsDir));
+app.use('/api/uploads', express.static(uploadsDir));
 
-// API Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/projects', crudRouter(Project, { order: 1, createdAt: -1 }));
-app.use('/api/skills', crudRouter(Skill, { category: 1, level: -1 }));
-app.use('/api/experience', crudRouter(Experience, { order: 1, createdAt: -1 }));
-app.use('/api/education', crudRouter(Education, { order: 1, createdAt: -1 }));
-app.use('/api/settings', require('./routes/settings'));
-app.use('/api/contact', require('./routes/contact'));
-app.use('/api/upload', require('./routes/upload'));
 
-// 404 handler
+  app.get('/', (req, res) => res.json({ status: 'Portfolio API running', env: process.env.NODE_ENV || 'development' }));
+
+
+  app.use('/api/auth', require('./routes/auth'));
+  app.use('/api/projects', crudRouter(Project, { order: 1, createdAt: -1 }));
+  app.use('/api/skills', crudRouter(Skill, { category: 1, level: -1 }));
+  app.use('/api/experience', crudRouter(Experience, { order: 1, createdAt: -1 }));
+  app.use('/api/education', crudRouter(Education, { order: 1, createdAt: -1 }));
+  app.use('/api/settings', require('./routes/settings'));
+  app.use('/api/contact', require('./routes/contact'));
+  app.use('/api/upload', require('./routes/upload'));
+
+
 app.use((req, res) => res.status(404).json({ message: 'Route not found' }));
 
-// Centralized error handler
+
 app.use((err, req, res, next) => {
   console.error('[Error]', err.stack || err.message || err);
 

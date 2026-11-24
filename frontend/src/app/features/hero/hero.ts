@@ -5,10 +5,11 @@ import { PortfolioStore } from '../../core/services/portfolio-store.service';
 import { IconComponent } from '../../shared/components/icon/icon';
 import { SocialLinksComponent } from '../../shared/components/social-links/social-links';
 import { RevealDirective } from '../../shared/directives/reveal.directive';
+import { AssetUrlPipe } from '../../shared/pipes/asset-url.pipe';
 
 @Component({
   selector: 'app-hero',
-  imports: [RouterLink, IconComponent, SocialLinksComponent, RevealDirective],
+  imports: [RouterLink, IconComponent, SocialLinksComponent, RevealDirective, AssetUrlPipe],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,4 +27,12 @@ export class HeroComponent {
     return { lead: parts.join(' '), last };
   });
   protected readonly socials = computed(() => this.store.settings()?.socials ?? []);
+
+  protected onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    if (img && !img.dataset['fallback']) {
+      img.dataset['fallback'] = 'true';
+      img.src = '/assets/images/profile.svg';
+    }
+  }
 }

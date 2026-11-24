@@ -39,7 +39,7 @@
 
         <div class="hero__actions" appReveal [revealDelay]="270">
           @if (settings()?.cvUrl) {
-            <a class="btn btn--primary" [href]="settings()?.cvUrl" download>
+            <a class="btn btn--primary" [href]="settings()?.cvUrl | assetUrl" download target="_blank" rel="noopener">
               <span class="btn__icon"><app-icon name="download" /></span>
               Download CV
             </a>
@@ -71,7 +71,8 @@
             @if (settings()?.profileImage) {
               <img
                 class="portrait__image"
-                [src]="settings()?.profileImage"
+                [src]="settings()?.profileImage | assetUrl"
+                (error)="onImageError($event)"
                 [alt]="'Portrait placeholder of ' + (settings()?.name || 'Ahmed Ashour')"
                 width="480"
                 height="560"

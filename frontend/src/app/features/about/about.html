@@ -22,7 +22,8 @@
         <div class="about__visual" appReveal>
           <div class="about__portrait">
             <img
-              [src]="settings()?.profileImage"
+              [src]="settings()?.profileImage | assetUrl"
+              (error)="onImageError($event)"
               [alt]="'Portrait placeholder of ' + (settings()?.name || 'Ahmed Ashour')"
               width="480"
               height="600"

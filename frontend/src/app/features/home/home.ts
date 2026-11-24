@@ -8,10 +8,6 @@ import { HeroComponent } from '../hero/hero';
 import { ProjectsComponent } from '../projects/projects';
 import { SkillsComponent } from '../skills/skills';
 
-/**
- * Public one-page portfolio. Each section is an independent feature component
- * so it can be reused on standalone pages or moved into the admin preview.
- */
 @Component({
   selector: 'app-home',
   imports: [

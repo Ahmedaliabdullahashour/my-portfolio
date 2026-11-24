@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, delay, of, timeout } from 'rxjs';
 
 import { API_CONFIG } from '../config/api.config';
+import { resolveAssetUrl } from '../utils/asset-url.util';
 import {
   MOCK_EDUCATION,
   MOCK_EXPERIENCE,
@@ -222,6 +223,10 @@ export class PortfolioApiService {
       .get<{ id: string; email: string }>(`${API_CONFIG.baseUrl}${API_CONFIG.endpoints.auth}/me`)
       .pipe(timeout(API_CONFIG.requestTimeout));
   }
+
+  getAssetUrl(url: string | null | undefined): string {
+    return resolveAssetUrl(url);
+  }
 }
 
 function clone<T>(value: T): T {
@@ -229,3 +234,8 @@ function clone<T>(value: T): T {
     ? structuredClone(value)
     : (JSON.parse(JSON.stringify(value)) as T);
 }
+
+
+
+
+
